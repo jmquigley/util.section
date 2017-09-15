@@ -1,0 +1,47 @@
+{
+  "name": "util.section",
+  "version": "0.0.0",
+  "author": "jmquigley <jmquigley@outlook.com>",
+  "description": "Retrieves a substring block delimited by a newline from a larger string",
+  "private": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jmquigley/util.section"
+  },
+  "bugs": {
+    "url": "https://github.com/jmquigley/util.section/issues"
+  },
+  "engines": {
+    "node": ">=7.5"
+  },
+  "dependencies": {
+    "util.pkgwrap": "0.0.68"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.28",
+    "ava": "^0.22.0",
+    "babel-preset-env": "^1.6.0",
+    "coveralls": "^2.13.1",
+    "lorem-ipsum": "^1.0.4",
+    "nyc": "^11.2.1",
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.2",
+    "util.fixture": "0.0.56"
+  },
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "scripts": {
+    "all": "yarn install && yarn run clean && yarn run lint && yarn run build && yarn test && yarn run report",
+    "build": "pkgwrap --build",
+    "clean": "pkgwrap --clean",
+    "coverage": "pkgwrap --coverage",
+    "lint": "pkgwrap --lint",
+    "postinstall": "pkgwrap --postinstall",
+    "report": "pkgwrap --reporting",
+    "test": "pkgwrap --testing --ava"
+  },
+  "ava": {
+    "babel": "inherit"
+  }
+}
