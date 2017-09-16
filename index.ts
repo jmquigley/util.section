@@ -15,11 +15,15 @@ export interface Section {
  * direction is set by the lines parameter.  When the number of newlines, in a
  * direction is found, then the start/end position offsets from the text buffer
  * are found.
+ *
+ * Setting the `lines` to 0 will just retrieve the current line.
+ *
  * @param text {string} the base text string to extract the substring
  * @param pos {number} the starting position within the text string to start
  * looking for newlines.
  * @param lines {number} the number of lines above and below the start position
- * line to include (this number is *2)
+ * line to include (this number is *2).  e.g. 5, would have five lines above,
+ * five lines below, and the line the cursor is on (11 total).
  * @param threshold {number} if the size of the buffer is below this number
  * then just return the whole buffer (don't search when under threshold)
  * @return {Section} an object that represents the section found.  This contains
@@ -35,8 +39,8 @@ export function section(text: string, pos: number, lines: number = 30, threshold
 		threshold = 1;
 	}
 
-	if (lines < 1) {
-		lines = 1;
+	if (lines < 0) {
+		lines = 0;
 	}
 
 	const ret = {
