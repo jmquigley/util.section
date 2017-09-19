@@ -1,6 +1,6 @@
 {
   "name": "util.section",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "jmquigley <jmquigley@outlook.com>",
   "description": "Retrieves a substring block delimited by a newline from a larger string",
   "private": false,
@@ -40,7 +40,7 @@
     "build": "pkgwrap --build",
     "clean": "pkgwrap --clean",
     "coverage": "pkgwrap --coverage",
-		"docs": "pkgwrap --docs",
+    "docs": "pkgwrap --docs",
     "lint": "pkgwrap --lint",
     "postinstall": "pkgwrap --postinstall",
     "report": "pkgwrap --reporting",
