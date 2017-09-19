@@ -111,17 +111,23 @@ export function line(text: string, pos: number): Section {
  */
 export function word(text: string, pos: number): Section {
 
-	if (pos > text.length || pos < 0) {
-		throw new Error(`Requested word position outside valid text range (pos=${pos} len=${text.length})`);
-	}
-
 	const ret = {
 		start: pos,
 		end: pos,
 		text: ''
 	};
 
-	if (ws.test(text[pos]) || text.length === 0) {
+	if (pos < 0 || text.length === 0) {
+		ret.start = ret.end = 0;
+		return ret;
+	}
+
+	if (pos > text.length - 1) {
+		ret.start = ret.end = text.length;
+		return ret;
+	}
+
+	if (ws.test(text[pos])) {
 		return ret;
 	}
 

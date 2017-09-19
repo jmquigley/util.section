@@ -1,5 +1,5 @@
-
 'use strict';
+
 import test from 'ava';
 import * as path from 'path';
 import {Fixture} from 'util.fixture';
@@ -242,7 +242,7 @@ test('Test the retrieval of a single line from the end of a text block', t => {
 	t.is(data.end, 2105);
 });
 
-test('Test the retrival of a word from a text block', t => {
+test('Test the retrieval of a word from a text block', t => {
 	const s: string = 'The quick brown fox jumps over the lazy dog';
 
 	const data: Section = word(s, 6);
@@ -266,11 +266,13 @@ test('Test the retrieval of a word from an empty text block', t => {
 
 test('Test retrieval of a word with a bad position index', t => {
 	const s: string = 'The quick brown fox jumps over the lazy dog';
+	const data: Section = word(s, -1);
+	t.truthy(data);
 
-	t.throws(() => {
-		const data: Section = word(s, -1);
-		t.fail(JSON.stringify(data));
-	});
+	t.is(data.text.length, 0);
+	t.is(data.text, '');
+	t.is(data.start, 0);
+	t.is(data.end, 0);
 });
 
 test('Test retrieval of a word on a boundary (whitespace)', t => {
@@ -315,4 +317,15 @@ test('Test retrieval of a word from the last position', t => {
 	t.is(data.text, 'dog');
 	t.is(data.start, 40);
 	t.is(data.end, 42);
+});
+
+test('Test word retrieval past the end of the line', t => {
+	const s: string = 'abcdef';
+	const data: Section = word(s, 7);
+	t.truthy(data);
+
+	t.is(data.text.length, 0);
+	t.is(data.text, '');
+	t.is(data.start, 6);
+	t.is(data.end, 6);
 });
