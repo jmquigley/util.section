@@ -8,6 +8,9 @@ export interface Section {
 	text: string;
 }
 
+// Whitespace regex
+const ws: RegExp = /\s/;
+
 /**
  * Retrieves a section of text from the given input text string.  It starts at
  * the given position and works forward/backward through the string looking for
@@ -91,8 +94,55 @@ export function section(text: string, pos: number, lines: number = 30, threshold
  * @param text {string} the block of text to perform the search.
  * @param pos {number} the current absolute position within the text block
  * @return {Section} an object that represents the section found.  This contains
- * the absolute start/end of the section, and a reference to this section.
+ * the absolute start/end of the line, and a reference to this line.
  */
 export function line(text: string, pos: number): Section {
 	return section(text, pos, 0, 0);
+}
+
+/**
+ * This call will retrieve the current word at the given cursor location.  A
+ * word is considered an alphanumeric value surrounded by white space.
+ * @param text {string} the block of text to perform the search.
+ * @param pos {number} the current absolute position within the text block
+ * @return {Section} an object that represents the section found.  This contains
+ * the absolute start/end of the word, and a reference to this word.
+ */
+export function word(text: string, pos: number): Section {
+
+	if (pos > text.length || pos < 0) {
+		throw new Error(`Requested word position outside valid text range (pos=${pos} len=${text.length})`);
+	}
+
+	const ret = {
+		start: pos,
+		end: pos,
+		text: ''
+	};
+
+	if (ws.test(text[pos]) || text.length === 0) {
+		return ret;
+	}
+
+	let leftDone: boolean = false;
+	let rightDone: boolean = false;
+
+	while (!leftDone || !rightDone) {
+
+		if (ret.start > 0 && !ws.test(text[ret.start - 1])) {
+			ret.start--;
+		} else {
+			leftDone = true;
+		}
+
+		if (ret.end < text.length - 1 && !ws.test(text[ret.end + 1])) {
+			ret.end++;
+		} else {
+			rightDone = true;
+		}
+	}
+
+	ret.text = text.slice(ret.start, ret.end + 1);
+
+	return ret;
 }
