@@ -35,6 +35,12 @@ export function section(text: string, pos: number, lines: number = 30, threshold
 		throw new Error(`Requested section position outside valid text range (pos=${pos} len=${text.length})`);
 	}
 
+	// Special case when falling on a newline character in the buffer.   Move the
+	// position one place to the left
+	if (text[pos] === nl && pos > 0) {
+		pos--;
+	}
+
 	if (threshold < 1) {
 		threshold = 1;
 	}
@@ -58,13 +64,13 @@ export function section(text: string, pos: number, lines: number = 30, threshold
 	let offLeft: number = lines + 1;
 	let offRight: number = lines + 1;
 
-	while ((offLeft && ret.start > 0) || (offRight && ret.end < text.length)) {
+	while ((offLeft && ret.start >= 0) || (offRight && ret.end < text.length - 1)) {
 
 		if (ret.start >= 0 && offLeft) {
 			ret.start--;
 		}
 
-		if (ret.end < text.length && offRight) {
+		if (ret.end < text.length - 1 && offRight) {
 			ret.end++;
 		}
 
@@ -76,4 +82,17 @@ export function section(text: string, pos: number, lines: number = 30, threshold
 	ret.text = text.slice(ret.start, ret.end + 1);
 
 	return ret;
+}
+
+/**
+ * Retrieves the current full line from the given input text.  This uses the
+ * newline character from the operating system to determine the beginning and
+ * end of the line.  The function is syntactic sugar for the section function.
+ * @param text {string} the block of text to perform the search.
+ * @param pos {number} the current absolute position within the text block
+ * @return {Section} an object that represents the section found.  This contains
+ * the absolute start/end of the section, and a reference to this section.
+ */
+export function line(text: string, pos: number): Section {
+	return section(text, pos, 0, 0);
 }
