@@ -1,15 +1,16 @@
 'use strict';
 
-import {nl} from 'util.toolbox';
-
 export interface Section {
 	start: number;
 	end: number;
 	text: string;
 }
 
-// Whitespace regex
+// whitespace regex
 const ws: RegExp = /\s/;
+
+// newline
+const nl: string = '\n';
 
 /**
  * Retrieves a section of text from the given input text string.  It starts at

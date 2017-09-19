@@ -16,8 +16,7 @@
     "node": ">=7.5"
   },
   "dependencies": {
-    "util.pkgwrap": "0.0.68",
-    "util.toolbox": "^0.0.47"
+    "util.pkgwrap": "0.0.68"
   },
   "devDependencies": {
     "@types/fs-extra": "^4.0.2",
