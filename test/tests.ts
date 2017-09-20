@@ -3,7 +3,7 @@
 import test from 'ava';
 import * as path from 'path';
 import {Fixture} from 'util.fixture';
-import {line, section, Section, word} from '../index';
+import {line, nl, section, Section, word} from '../index';
 import {cleanup} from './helpers';
 
 // const debug = require('debug')('section.test');
@@ -240,6 +240,18 @@ test('Test the retrieval of a single line from the end of a text block', t => {
 	t.regex(data.text, /z{80}\n/);
 	t.is(data.start, 2025);
 	t.is(data.end, 2105);
+});
+
+test('Test line retrieval when the lines are a series of newline characters', t => {
+	const s: string = '\n\n\n\n\n\n\n\n\n\n';
+	const data: Section = line(s, 2);
+
+	t.truthy(data);
+
+	t.is(data.text.length, 1);
+	t.is(data.text, nl);
+	t.is(data.start, 2);
+	t.is(data.end, 2);
 });
 
 test('Test the retrieval of a word from a text block', t => {

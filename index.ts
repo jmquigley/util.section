@@ -7,10 +7,10 @@ export interface Section {
 }
 
 // whitespace regex
-const ws: RegExp = /\s/;
+export const ws: RegExp = /\s/;
 
 // newline
-const nl: string = '\n';
+export const nl: string = '\n';
 
 /**
  * Retrieves a section of text from the given input text string.  It starts at
@@ -98,7 +98,16 @@ export function section(text: string, pos: number, lines: number = 30, threshold
  * the absolute start/end of the line, and a reference to this line.
  */
 export function line(text: string, pos: number): Section {
-	return section(text, pos, 0, 0);
+	const ret: Section = section(text, pos, 0, 0);
+
+	// Handles a special case when selecting a line that is only composed of
+	// a newline
+	if ((ret.text[0] === nl) && (ret.text[1] === nl)) {
+		ret.text = ret.text.slice(0, 1);
+		ret.start = ret.end;
+	}
+
+	return ret;
 }
 
 /**
