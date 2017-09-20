@@ -254,6 +254,18 @@ test('Test line retrieval when the lines are a series of newline characters', t 
 	t.is(data.end, 2);
 });
 
+test('Test line retrieval with special case newline after text', t => {
+	const s: string = '\n\nabc\n\n\n\n\n\n\n\n';
+	const data: Section = line(s, 6);
+
+	t.truthy(data);
+
+	t.is(data.text.length, 1);
+	t.is(data.text, nl);
+	t.is(data.start, 6);
+	t.is(data.end, 6);
+});
+
 test('Test the retrieval of a word from a text block', t => {
 	const s: string = 'The quick brown fox jumps over the lazy dog';
 

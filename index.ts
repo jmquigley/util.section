@@ -98,13 +98,16 @@ export function section(text: string, pos: number, lines: number = 30, threshold
  * the absolute start/end of the line, and a reference to this line.
  */
 export function line(text: string, pos: number): Section {
-	const ret: Section = section(text, pos, 0, 0);
+	let ret: Section = {
+		start: pos,
+		end: pos,
+		text: ''
+	};
 
-	// Handles a special case when selecting a line that is only composed of
-	// a newline
-	if ((ret.text[0] === nl) && (ret.text[1] === nl)) {
-		ret.text = ret.text.slice(0, 1);
-		ret.start = ret.end;
+	if ((text[pos] === nl) && (text[pos - 1] === nl)) {
+		ret.text = nl;
+	} else {
+		ret = section(text, pos, 0, 0);
 	}
 
 	return ret;
