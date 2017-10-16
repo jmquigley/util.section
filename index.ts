@@ -1,9 +1,12 @@
 'use strict';
 
+// const debug = require('debug')('section');
+
 export interface Section {
 	start: number;
 	end: number;
 	text: string;
+	multiLine: boolean;
 }
 
 // whitespace regex
@@ -56,7 +59,8 @@ export function section(text: string, pos: number, lines: number = 30, threshold
 	const ret = {
 		start: 0,
 		end: text.length,
-		text: text
+		text: text,
+		multiLine: false
 	};
 
 	if (ret.end < threshold || text.length === 0) {
@@ -65,8 +69,9 @@ export function section(text: string, pos: number, lines: number = 30, threshold
 		ret.start = ret.end = pos;
 	}
 
-	let offLeft: number = lines + 1;
-	let offRight: number = lines + 1;
+	let offLeft: number = pos === 0 ? 1 : lines + 1;
+	let offRight: number = pos === text.length ? 0 : lines + 1;
+	let nlCount: number = -1;
 
 	while ((offLeft && ret.start >= 0) || (offRight && ret.end < text.length - 1)) {
 
@@ -78,12 +83,20 @@ export function section(text: string, pos: number, lines: number = 30, threshold
 			ret.end++;
 		}
 
-		if (text[ret.start] === nl && offLeft) offLeft--;
-		if (text[ret.end] === nl && offRight) offRight--;
+		if (text[ret.start] === nl && offLeft) {
+			offLeft--;
+			nlCount++;
+		}
+
+		if (text[ret.end] === nl && offRight) {
+			offRight--;
+			nlCount++;
+		}
 	}
 
 	ret.start++;
 	ret.text = text.slice(ret.start, ret.end + 1);
+	ret.multiLine = nlCount > 1;
 
 	return ret;
 }
@@ -101,7 +114,8 @@ export function line(text: string, pos: number): Section {
 	let ret: Section = {
 		start: pos,
 		end: pos,
-		text: ''
+		text: '',
+		multiLine: false
 	};
 
 	if ((text[pos] === nl) && (text[pos - 1] === nl)) {
@@ -126,7 +140,8 @@ export function word(text: string, pos: number): Section {
 	const ret = {
 		start: pos,
 		end: pos,
-		text: ''
+		text: '',
+		multiLine: false
 	};
 
 	if (pos < 0 || text.length === 0) {

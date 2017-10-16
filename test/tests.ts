@@ -68,6 +68,7 @@ test('Test section call with empty text', t => {
 	t.is(data.text, '');
 	t.is(data.start, 0);
 	t.is(data.end, 0);
+	t.false(data.multiLine);
 });
 
 test('Test retrieving section from a small dataset', t => {
@@ -84,6 +85,7 @@ test('Test retrieving section from a small dataset', t => {
 	t.is(data.text.length, (3 * 80) + 3);
 	t.is(data.start, 162);
 	t.is(data.end, 404);
+	t.true(data.multiLine);
 	t.regex(data.text, /c{80}\nd{80}\ne{80}\n/);
 });
 
@@ -101,6 +103,7 @@ test('Test retrieving a single line from the current position using section', t 
 	t.is(data.text.length, 81);
 	t.is(data.start, 243);
 	t.is(data.end, 323);
+	t.false(data.multiLine);
 	t.regex(data.text, /d{80}\n/);
 });
 
@@ -118,6 +121,7 @@ test('Test retrieving from the first position', t => {
 	t.is(data.text.length, (6 * 80) + 6);
 	t.is(data.start, 0);
 	t.is(data.end, 485);
+	t.true(data.multiLine);
 	t.regex(data.text, /a{80}\nb{80}\nc{80}\nd{80}\ne{80}\nf{80}\n/);
 });
 
@@ -135,6 +139,7 @@ test('Test retrieving from the final position', t => {
 	t.is(data.text.length, (6 * 80) + 6);
 	t.is(data.start, 1620);
 	t.is(data.end, 2105);
+	t.true(data.multiLine);
 
 	t.regex(data.text, /u{80}\nv{80}\nw{80}\nx{80}\ny{80}\nz{80}\n/);
 });
@@ -153,6 +158,7 @@ test('Test retrieving block when falling on a boundary newline', t => {
 	t.regex(data.text, /a{80}\n/);
 	t.is(data.start, 0);
 	t.is(data.end, 80);
+	t.false(data.multiLine);
 });
 
 test('Retrieve an arbitrary section from a string that is all newline characters', t => {
@@ -166,6 +172,7 @@ test('Retrieve an arbitrary section from a string that is all newline characters
 	t.regex(data.text, /\n{4}/);
 	t.is(data.start, 0);
 	t.is(data.end, 3);
+	t.true(data.multiLine);
 });
 
 test('Retrieve the end section from a string that is all newline characters', t => {
@@ -179,6 +186,7 @@ test('Retrieve the end section from a string that is all newline characters', t 
 	t.regex(data.text, /\n{3}/);
 	t.is(data.start, 7);
 	t.is(data.end, 9);
+	t.true(data.multiLine);
 });
 
 test('Retrieve the front section from a string that is all newline characters', t => {
@@ -192,6 +200,7 @@ test('Retrieve the front section from a string that is all newline characters', 
 	t.regex(data.text, /\n{3}/);
 	t.is(data.start, 0);
 	t.is(data.end, 2);
+	t.false(data.multiLine);
 });
 
 test('Tests the retrieval of a single line from a text block', t => {
@@ -208,6 +217,7 @@ test('Tests the retrieval of a single line from a text block', t => {
 	t.regex(data.text, /c{80}\n/);
 	t.is(data.start, 162);
 	t.is(data.end, 242);
+	t.false(data.multiLine);
 });
 
 test('Test the retrieval of a single line from the front of a text block', t => {
@@ -224,6 +234,7 @@ test('Test the retrieval of a single line from the front of a text block', t => 
 	t.regex(data.text, /a{80}\n/);
 	t.is(data.start, 0);
 	t.is(data.end, 80);
+	t.false(data.multiLine);
 });
 
 test('Test the retrieval of a single line from the end of a text block', t => {
@@ -240,6 +251,7 @@ test('Test the retrieval of a single line from the end of a text block', t => {
 	t.regex(data.text, /z{80}\n/);
 	t.is(data.start, 2025);
 	t.is(data.end, 2105);
+	t.false(data.multiLine);
 });
 
 test('Test line retrieval when the lines are a series of newline characters', t => {
@@ -252,6 +264,7 @@ test('Test line retrieval when the lines are a series of newline characters', t 
 	t.is(data.text, nl);
 	t.is(data.start, 2);
 	t.is(data.end, 2);
+	t.false(data.multiLine);
 });
 
 test('Test line retrieval with special case newline after text', t => {
@@ -264,6 +277,7 @@ test('Test line retrieval with special case newline after text', t => {
 	t.is(data.text, nl);
 	t.is(data.start, 6);
 	t.is(data.end, 6);
+	t.false(data.multiLine);
 });
 
 test('Test the retrieval of a word from a text block', t => {
@@ -276,6 +290,7 @@ test('Test the retrieval of a word from a text block', t => {
 	t.is(data.text, 'quick');
 	t.is(data.start, 4);
 	t.is(data.end, 8);
+	t.false(data.multiLine);
 });
 
 test('Test the retrieval of a word from an empty text block', t => {
@@ -286,6 +301,7 @@ test('Test the retrieval of a word from an empty text block', t => {
 	t.is(data.text, '');
 	t.is(data.start, 0);
 	t.is(data.end, 0);
+	t.false(data.multiLine);
 });
 
 test('Test retrieval of a word with a bad position index', t => {
@@ -297,6 +313,7 @@ test('Test retrieval of a word with a bad position index', t => {
 	t.is(data.text, '');
 	t.is(data.start, 0);
 	t.is(data.end, 0);
+	t.false(data.multiLine);
 });
 
 test('Test retrieval of a word on a boundary (whitespace)', t => {
@@ -308,6 +325,7 @@ test('Test retrieval of a word on a boundary (whitespace)', t => {
 	t.is(data.text, '');
 	t.is(data.start, 3);
 	t.is(data.end, 3);
+	t.false(data.multiLine);
 });
 
 test('Test retrieval of a word on a tab boundary (whitespace)', t => {
@@ -319,6 +337,7 @@ test('Test retrieval of a word on a tab boundary (whitespace)', t => {
 	t.is(data.text, '');
 	t.is(data.start, 3);
 	t.is(data.end, 3);
+	t.false(data.multiLine);
 });
 
 test('Test retrieval of a word from the first position', t => {
@@ -330,6 +349,7 @@ test('Test retrieval of a word from the first position', t => {
 	t.is(data.text, 'The');
 	t.is(data.start, 0);
 	t.is(data.end, 2);
+	t.false(data.multiLine);
 });
 
 test('Test retrieval of a word from the last position', t => {
@@ -341,6 +361,7 @@ test('Test retrieval of a word from the last position', t => {
 	t.is(data.text, 'dog');
 	t.is(data.start, 40);
 	t.is(data.end, 42);
+	t.false(data.multiLine);
 });
 
 test('Test word retrieval past the end of the line', t => {
@@ -352,4 +373,5 @@ test('Test word retrieval past the end of the line', t => {
 	t.is(data.text, '');
 	t.is(data.start, 6);
 	t.is(data.end, 6);
+	t.false(data.multiLine);
 });
