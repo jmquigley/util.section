@@ -16,21 +16,21 @@
     "node": ">=7.5"
   },
   "dependencies": {
-    "util.pkgwrap": "0.0.71"
+    "util.pkgwrap": "0.0.73"
   },
   "devDependencies": {
-    "@types/fs-extra": "^4.0.2",
-    "@types/node": "^8.0.40",
-    "ava": "^0.22.0",
-    "babel-preset-env": "^1.6.0",
+    "@types/fs-extra": "^4.0.5",
+    "@types/node": "^8.0.53",
+    "ava": "^0.23.0",
+    "babel-preset-env": "^1.6.1",
     "coveralls": "^3.0.0",
     "debug": "^3.1.0",
     "fs-extra": "^4.0.2",
     "lorem-ipsum": "^1.0.4",
-    "nyc": "^11.2.1",
-    "tslint": "^5.7.0",
-    "typescript": "^2.5.3",
-    "util.fixture": "0.0.58"
+    "nyc": "^11.3.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1",
+    "util.fixture": "0.0.59"
   },
   "main": "./index.js",
   "types": "./index.d.ts",
