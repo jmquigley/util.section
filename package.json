@@ -18,19 +18,19 @@
     "node": ">=7.x"
   },
   "devDependencies": {
-    "@types/fs-extra": "^4.0.5",
-    "@types/node": "^8.0.54",
-    "ava": "^0.24.0",
+    "@types/fs-extra": "^5.0.2",
+    "@types/node": "^9.6.6",
+    "ava": "^0.25.0",
     "babel-preset-env": "^1.6.1",
     "coveralls": "^3.0.0",
     "debug": "^3.1.0",
-    "fs-extra": "^4.0.2",
+    "fs-extra": "^5.0.0",
     "lorem-ipsum": "^1.0.4",
-    "nyc": "^11.3.0",
-    "tslint": "^5.8.0",
-    "typescript": "^2.6.2",
-    "util.fixture": "0.0.61",
-    "util.pkgwrap": "^0.0.88"
+    "nyc": "^11.7.1",
+    "tslint": "^5.9.1",
+    "typescript": "^2.8.1",
+    "util.fixture": "0.0.62",
+    "util.pkgwrap": "^0.0.91"
   },
   "ava": {
     "babel": "inherit"
