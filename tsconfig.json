@@ -21,6 +21,7 @@
 		"coverage",
 		"docs",
 		"node_modules",
-		"public"
+		"public",
+		"__tests__"
 	]
 }
