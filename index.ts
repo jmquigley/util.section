@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 // const debug = require('debug')('section');
 
@@ -13,7 +13,7 @@ export interface Section {
 export const ws: RegExp = /\s/;
 
 // newline
-export const nl: string = '\n';
+export const nl: string = "\n";
 
 /**
  * Retrieves a section of text from the given input text string.  It starts at
@@ -36,10 +36,18 @@ export const nl: string = '\n';
  * @return {Section} an object that represents the section found.  This contains
  * the absolute start/end of the section, and a reference to this section.
  */
-export function section(text: string, pos: number, lines: number = 30, threshold: number = 300): Section {
-
+export function section(
+	text: string,
+	pos: number,
+	lines: number = 30,
+	threshold: number = 300
+): Section {
 	if (pos > text.length || pos < 0) {
-		throw new Error(`Requested section position outside valid text range (pos=${pos} len=${text.length})`);
+		throw new Error(
+			`Requested section position outside valid text range (pos=${pos} len=${
+				text.length
+			})`
+		);
 	}
 
 	// Special case when falling on a newline character in the buffer.   Move the
@@ -73,8 +81,10 @@ export function section(text: string, pos: number, lines: number = 30, threshold
 	let offRight: number = pos === text.length ? 0 : lines + 1;
 	let nlCount: number = -1;
 
-	while ((offLeft && ret.start >= 0) || (offRight && ret.end < text.length - 1)) {
-
+	while (
+		(offLeft && ret.start >= 0) ||
+		(offRight && ret.end < text.length - 1)
+	) {
 		if (ret.start >= 0 && offLeft) {
 			ret.start--;
 		}
@@ -114,11 +124,11 @@ export function line(text: string, pos: number): Section {
 	let ret: Section = {
 		start: pos,
 		end: pos,
-		text: '',
+		text: "",
 		multiLine: false
 	};
 
-	if ((text[pos] === nl) && (text[pos - 1] === nl)) {
+	if (text[pos] === nl && text[pos - 1] === nl) {
 		ret.text = nl;
 	} else {
 		ret = section(text, pos, 0, 0);
@@ -136,11 +146,10 @@ export function line(text: string, pos: number): Section {
  * the absolute start/end of the word, and a reference to this word.
  */
 export function word(text: string, pos: number): Section {
-
 	const ret = {
 		start: pos,
 		end: pos,
-		text: '',
+		text: "",
 		multiLine: false
 	};
 
@@ -162,7 +171,6 @@ export function word(text: string, pos: number): Section {
 	let rightDone: boolean = false;
 
 	while (!leftDone || !rightDone) {
-
 		if (ret.start > 0 && !ws.test(text[ret.start - 1])) {
 			ret.start--;
 		} else {
