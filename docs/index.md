@@ -36,13 +36,16 @@ Setting the `lines` to 0 will just retrieve the current line.
 **Kind**: global function  
 **Returns**: <code>Section</code> - an object that represents the section found.  This contains
 the absolute start/end of the section, and a reference to this section.  
+**Params**
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| text | <code>string</code> |  | the base text string to extract the substring |
-| pos | <code>number</code> |  | the starting position within the text string to start looking for newlines. |
-| lines | <code>number</code> | <code>30</code> | the number of lines above and below the start position line to include (this number is *2).  e.g. 5, would have five lines above, five lines below, and the line the cursor is on (11 total). |
-| threshold | <code>number</code> | <code>300</code> | if the size of the buffer is below this number then just return the whole buffer (don't search when under threshold) |
+- text <code>string</code> - the base text string to extract the substring
+- pos <code>number</code> - the starting position within the text string to start
+looking for newlines.
+- lines <code>number</code> <code> = 30</code> - the number of lines above and below the start position
+line to include (this number is *2).  e.g. 5, would have five lines above,
+five lines below, and the line the cursor is on (11 total).
+- threshold <code>number</code> <code> = 300</code> - if the size of the buffer is below this number
+then just return the whole buffer (don't search when under threshold)
 
 <a name="line"></a>
 
@@ -54,11 +57,10 @@ end of the line.  The function is syntactic sugar for the section function.
 **Kind**: global function  
 **Returns**: <code>Section</code> - an object that represents the section found.  This contains
 the absolute start/end of the line, and a reference to this line.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| text | <code>string</code> | the block of text to perform the search. |
-| pos | <code>number</code> | the current absolute position within the text block |
+- text <code>string</code> - the block of text to perform the search.
+- pos <code>number</code> - the current absolute position within the text block
 
 <a name="word"></a>
 
@@ -69,9 +71,8 @@ word is considered an alphanumeric value surrounded by white space.
 **Kind**: global function  
 **Returns**: <code>Section</code> - an object that represents the section found.  This contains
 the absolute start/end of the word, and a reference to this word.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| text | <code>string</code> | the block of text to perform the search. |
-| pos | <code>number</code> | the current absolute position within the text block |
+- text <code>string</code> - the block of text to perform the search.
+- pos <code>number</code> - the current absolute position within the text block
 
