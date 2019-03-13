@@ -1,14 +1,13 @@
 "use strict";
 
 import * as path from "path";
-import {Fixture} from "util.fixture";
+import {cleanup, Fixture} from "util.fixture";
 import {line, nl, section, Section, word} from "../index";
-import {cleanup} from "./helpers";
 
 // const debug = require('debug')('section.test');
 
 afterAll((done) => {
-	cleanup(path.basename(__filename), done);
+	cleanup({done, message: path.basename(__filename)});
 });
 
 test("Test section function on data below threshold", () => {
