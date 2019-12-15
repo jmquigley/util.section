@@ -1,5 +1,3 @@
-"use strict";
-
 import * as path from "path";
 import {cleanup, Fixture} from "util.fixture";
 import {line, nl, section, Section, word} from "../index";

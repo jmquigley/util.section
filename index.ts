@@ -1,5 +1,3 @@
-"use strict";
-
 // const debug = require('debug')('section');
 
 export interface Section {
@@ -44,9 +42,7 @@ export function section(
 ): Section {
 	if (pos > text.length || pos < 0) {
 		throw new Error(
-			`Requested section position outside valid text range (pos=${pos} len=${
-				text.length
-			})`
+			`Requested section position outside valid text range (pos=${pos} len=${text.length})`
 		);
 	}
 
